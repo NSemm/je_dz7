@@ -11,23 +11,18 @@ import java.util.regex.Pattern;
 public class UserParser {
 
     public User parse(String user) {
-        Pattern pattern = Pattern.compile("(\\w+)?(?::(\\w+))?(?:@(\\w+))?");
+        Pattern pattern = Pattern.compile("(?:(\\w+):)?(\\w+)?(?:@(\\w+))?");
         Matcher matcher = pattern.matcher(user);
         User parsedUser = null;
-        if ((!matcher.matches()) || (matcher.group(1) == null && matcher.group(2) == null)) {
+        if ((!matcher.matches()) || (matcher.group(2) == null)) {
             System.out.println(user + " - Invalid user!");
             return null;
         } else {
-            if (matcher.group(2) == null) {
-                parsedUser = new User(matcher.group(1), matcher.group(1), matcher.group(3));
-            }
-            if (matcher.group(1) == null) {
+            if (matcher.group(1) == null)
                 parsedUser = new User(matcher.group(2), matcher.group(2), matcher.group(3));
-            }
-            if (matcher.group(1) != null && matcher.group(2) != null) {
-                parsedUser = new User(matcher.group(1), matcher.group(2), matcher.group(3));
-            }
+            else parsedUser = new User(matcher.group(1), matcher.group(2), matcher.group(3));
             return parsedUser;
+
         }
     }
 
