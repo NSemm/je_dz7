@@ -4,14 +4,13 @@ import lombok.AllArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @AllArgsConstructor
 public class UserParser {
 
-    User parse(String user) {
+    public User parse(String user) {
         Pattern pattern = Pattern.compile("(\\w+)?(?::(\\w+))?(?:@(\\w+))?");
         Matcher matcher = pattern.matcher(user);
         User parsedUser = null;
@@ -42,8 +41,8 @@ public class UserParser {
         return userList;
     }
 
-    public void viewUsers(List<User> users) {
-        for (User u : users
+    public void viewUsers(String s) {
+        for (User u : parselist(s)
         ) {
             System.out.println(u);
         }
